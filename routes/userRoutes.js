@@ -13,7 +13,7 @@ router.post('/api/users/register', async (req, res) => {
             return res.status(400).json({ error: 'Email has already been used.' });
         } else {
             const user = await User.create(req.body);
-            res.status(201).json(user)
+            return res.status(201).json(user)
         }
     } catch (error) {
         res.status(400).json({ error: error.message });
@@ -40,7 +40,7 @@ router.post('/api/users/login', async (req, res) => {
         };
 
         const token = jwt.sign({ data: payload }, secret, { expiresIn: '2h' });
-        res.status(200).json({ token, user});
+        return res.status(200).json({ token, user});
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
